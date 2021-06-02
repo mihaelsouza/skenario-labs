@@ -96,12 +96,4 @@ public class PropertyController {
       return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-
-  public PropertyRepository getPropertyRepository() {
-    return propertyRepository;
-  }
-
-  public void setPropertyRepository(PropertyRepository propertyRepository) {
-    this.propertyRepository = propertyRepository;
-  }
 }
