@@ -39,6 +39,8 @@ public class Property {
   @Column(name = "description")
   private String description;
 
+  public Property() {}
+
   public Property(
     long userId,
     String name,
