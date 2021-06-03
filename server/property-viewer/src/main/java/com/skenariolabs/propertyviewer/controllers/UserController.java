@@ -24,6 +24,9 @@ public class UserController {
   @Autowired
   UserRepository userRepository;
 
+  @Autowired
+  BCryptPasswordEncoder bCryptPasswordEncoder;
+
   @PostMapping("/users")
   public ResponseEntity<User> authenticate(
     @RequestBody Map<String, String> loginData
@@ -36,12 +39,36 @@ public class UserController {
       if (_user.isPresent()) {
         User user = _user.get();
 
-        if (password.equals(user.getPassword()))
+        if (bCryptPasswordEncoder.matches(password, user.getPassword()))
           return new ResponseEntity<>(user, HttpStatus.OK);
         else
           return new ResponseEntity<>(HttpStatus.FORBIDDEN);
       } else {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      }
+    } catch (Exception e) {
+      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @PostMapping("/users/register")
+  public ResponseEntity<User> registerUser(@RequestBody User user) {
+    try {
+      Optional<User> existingUser= userRepository.findByEmail(user.getEmail());
+      if (existingUser.isPresent())
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
+      else {
+        String encryptedPassword = bCryptPasswordEncoder.encode(
+          user.getPassword().toLowerCase()
+        );
+        User _user = userRepository
+          .save(new User(
+            user.getUsername(),
+            user.getEmail(),
+            encryptedPassword
+          ));
+
+        return new ResponseEntity<>(_user, HttpStatus.CREATED);
       }
     } catch (Exception e) {
       return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
