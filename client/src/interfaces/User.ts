@@ -1,7 +1,7 @@
 export interface User {
   userId: number,
-  username: String,
-  email: String,
+  username: string,
+  email: string,
 };
 
 export const UserInitialState = {
