@@ -7,6 +7,7 @@ import { openModal } from '../../redux/modalSlice';
 
 import Modal from '../../containers/Modal/Modal';
 import UserLoginRegister from '../UserLoginRegister/UserLoginRegister';
+import NavBar from '../../containers/NavBar/NavBar';
 
 const Dashboard: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +21,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div>
-      <h1>Hi There!</h1>
+      <NavBar />
       <Modal>
         <UserLoginRegister />
       </Modal>

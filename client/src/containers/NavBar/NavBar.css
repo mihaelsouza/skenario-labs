@@ -1,0 +1,32 @@
+.navbar-container {
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  position: fixed;
+  align-items: center;
+  justify-content: space-around;
+  height: max-content;
+  width: 100%;
+  background-color: rgba(58, 114, 101, 0.5);
+  box-shadow: 0 2px 2px 2px rgba(0,0,0,.6);
+}
+
+.navbar-container button {
+  cursor: pointer;
+  color: white;
+  text-align: center;
+  font-size: .8rem;
+  width: 100px;
+  height: 2rem;
+  font-weight: 600;
+  border: 0;
+  box-shadow: 0 0 5px black;
+  border-radius: .5rem;
+  background: rgba(204, 48, 0, 0.9);
+}
+
+.navbar-container button:hover {
+  background-color: rgba(204, 48, 0, 0.6);
+}
