@@ -2,19 +2,22 @@ import './Modal.css';
 import React, { ReactNode } from 'react';
 import ReactDom from 'react-dom';
 
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { closeModal } from '../../redux/modalSlice';
+
 interface Props {
-  isOpen: boolean,
-  setState: React.Dispatch<React.SetStateAction<boolean>>,
   children?: ReactNode;
 }
 
-const Modal: React.FC<Props> = ({ isOpen, setState, children }: Props) => {
+const Modal: React.FC<Props> = ({ children }: Props) => {
+  const modalState = useAppSelector(state => state.modal.value);
+  const dispatch = useAppDispatch();
 
   const portalDiv = document.getElementById('portal');
-  if (!portalDiv || !isOpen) return null;
+  if (!portalDiv || !modalState) return null;
 
   const handleClick = () => {
-    setState(false);
+    dispatch(closeModal());
   };
 
   return ReactDom.createPortal(
