@@ -13,12 +13,10 @@ const Dashboard: React.FC = () => {
   const user = useAppSelector(state => state.users);
 
   useEffect(() => {
-    (async () => {
-      const userData = localStorage.getItem('sklabs-propertyviewer-userdata');
-      if (userData) dispatch(updateUser(JSON.parse(userData)));
-      else dispatch(openModal());
-    })();
-  }, []);
+    const userData = localStorage.getItem('sklabs-propertyviewer-userdata');
+    if (userData) dispatch(updateUser(JSON.parse(userData)));
+    else dispatch(openModal());
+  }, [dispatch]);
 
   return (
     <div>
