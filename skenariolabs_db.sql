@@ -5,9 +5,6 @@ drop user skenariolabs;
 create user skenariolabs with password 'unsecurepassword';
 create database propertyviewer with template=template0 owner=skenariolabs;
 
-alter default privileges grant all on tables to skenariolabs;
-alter default privileges grant all on sequences to skenariolabs;
-
 \connect propertyviewer;
 
 create table users(
@@ -33,6 +30,3 @@ foreign key (user_id) references users(user_id);
 
 alter table users owner to skenariolabs;
 alter table properties owner to skenariolabs;
-
-create sequence sl_users_seq increment 1 start 1;
-create sequence sl_properties_seq increment 1 start 1;
