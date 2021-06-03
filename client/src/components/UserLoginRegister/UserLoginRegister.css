@@ -44,12 +44,12 @@
   font-weight: 600;
   border: 0;
   box-shadow: 0 0 5px black;
-  background: rgba(0, 204, 187, .9);
+  background: steelblue;
 }
 
 .user-form-btn input:hover {
   box-shadow: 0 0 4px black;
-  background-color: rgba(0, 204, 187, 1)
+  background-color: rgba(0, 204, 187, 1);
 }
 
 .form-toggle {
