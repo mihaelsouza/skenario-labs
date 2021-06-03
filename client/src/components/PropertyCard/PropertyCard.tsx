@@ -6,12 +6,11 @@ import { Property } from '../../interfaces/Property';
 interface Props {
   key: React.Key;
   property: Property;
+  handleRemove: (propertyId: number) => void;
 }
 
-const PropertyCard: React.FC<Props> = ({ property }: Props) => {
+const PropertyCard: React.FC<Props> = ({ property, handleRemove }: Props) => {
   const handleEdit = () => {};
-
-  const handleRemove = () => {};
 
   return (
     <div className="property-card-container">
@@ -26,7 +25,10 @@ const PropertyCard: React.FC<Props> = ({ property }: Props) => {
         <p>{property.description}</p>
         <div className="property-card-btn-container">
           <button className="property-card-btn" onClick={handleEdit}>EDIT</button>
-          <button className="property-card-btn" onClick={handleRemove}>REMOVE</button>
+          <button
+            className="property-card-btn"
+            onClick={() => handleRemove(property.property_id)}
+          >REMOVE</button>
         </div>
       </div>
     </div>

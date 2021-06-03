@@ -54,5 +54,13 @@ async function getUserProperties(userId: number): Promise<Property[]> {
   }
 }
 
+async function deleteProperty(userId: number, propertyId: number): Promise<void> {
+  try {
+    await axios.delete(`${serverAddress}/properties/${userId}/${propertyId}`);
+  } catch (e) {
+    throw error(null);
+  }
+}
+
 export { getUser, createUser };
-export { getUserProperties }
+export { getUserProperties, deleteProperty }
