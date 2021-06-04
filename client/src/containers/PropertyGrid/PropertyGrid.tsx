@@ -1,24 +1,18 @@
 import './PropertyGrid.css';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { openModal, switchRender } from '../../redux/modalSlice';
 
-import { Property } from '../../interfaces/Property';
-import { getUserProperties, deleteProperty } from '../../services/ServerService';
+import { deleteProperty } from '../../services/ServerService';
 
 import PropertyCard from '../../components/PropertyCard/PropertyCard';
+import { storeProperties } from '../../redux/propertySlice';
 
 const PropertyGrid: React.FC = () => {
-  const [properties, setProperties] = useState<Property[]>([]);
+  const properties = useAppSelector(state => state.properties.value);
   const userId = useAppSelector(state => state.users.userId);
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    (async () => {
-      setProperties(await getUserProperties(userId));
-    })();
-  }, [userId]);
 
   const handleAddNew = () => {
     dispatch(switchRender('addProperty'));
@@ -30,7 +24,7 @@ const PropertyGrid: React.FC = () => {
       await deleteProperty(userId, propertyId);
       const updatedProperties = properties
         .filter((property) => property.property_id !== propertyId);
-      setProperties([...updatedProperties]);
+      dispatch(storeProperties(updatedProperties));
     } catch (e) {
       alert("Failed to delete the property due to an internal server error. Try again later!")
     }

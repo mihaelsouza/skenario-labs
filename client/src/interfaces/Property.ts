@@ -1,3 +1,7 @@
+export interface Properties {
+  value: Property[];
+}
+
 export interface Property {
   property_id: number;
   userId: number;
@@ -10,7 +14,7 @@ export interface Property {
   description: string;
 };
 
-export const PropertyInitialState = {
+export const PropertyInitialState = [{
   property_id: 0,
   userId: 0,
   name: '',
@@ -20,4 +24,4 @@ export const PropertyInitialState = {
   municipality: '',
   country: '',
   description: '',
-};
+}];
