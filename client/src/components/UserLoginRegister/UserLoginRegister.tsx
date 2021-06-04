@@ -73,6 +73,8 @@ const UserLoginRegister: React.FC = () => {
 
   return (
     <div>
+      <h1>Welcome to Property Viewer!</h1>
+      <h3>Before moving on, please log in.</h3>
       {isLogin ? (
         <form className="form-style" onSubmit={(event) => handleSubmit(event)}>
           <label htmlFor="email">
