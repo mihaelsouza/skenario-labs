@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { closeModal } from '../../redux/modalSlice';
 
 import UserLoginRegister from '../../components/UserLoginRegister/UserLoginRegister';
-import AddProperty from '../../components/AddProperty/AddProperty';
+import PropertyView from '../../components/PropertyView/PropertyView';
 
 const Modal: React.FC = () => {
   const modalState = useAppSelector(state => state.modal.value);
@@ -29,7 +29,7 @@ const Modal: React.FC = () => {
         </button>
         {modalRender === 'user'
           ? <UserLoginRegister />
-          : <AddProperty />
+          : <PropertyView actionMode={modalRender}/>
         }
       </div>
     </>,

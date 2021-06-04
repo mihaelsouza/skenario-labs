@@ -54,6 +54,17 @@ async function getUserProperties(userId: number): Promise<Property[]> {
   }
 }
 
+async function addNewProperty(userId: number, property: Partial<Property>): Promise<Property> {
+  try {
+    const response = await axios.post(`${serverAddress}/properties/${userId}`, {userId, ...property});
+    const newProperty: Property = response.data;
+
+    return newProperty;
+  } catch (e) {
+    throw error(null);
+  }
+}
+
 async function deleteProperty(userId: number, propertyId: number): Promise<void> {
   try {
     await axios.delete(`${serverAddress}/properties/${userId}/${propertyId}`);
@@ -63,4 +74,4 @@ async function deleteProperty(userId: number, propertyId: number): Promise<void>
 }
 
 export { getUser, createUser };
-export { getUserProperties, deleteProperty }
+export { getUserProperties, deleteProperty, addNewProperty };
