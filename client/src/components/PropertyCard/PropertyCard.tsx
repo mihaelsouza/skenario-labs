@@ -16,8 +16,8 @@ const PropertyCard: React.FC<Props> = ({ property, handleRemove }: Props) => {
     <div className="property-card-container">
       <div className="property-card-highlight">
         <h1>{property.name}</h1>
-        <p>Latitude: -10190810924</p>
-        <p>Longitude: 8901820941</p>
+        <p>{`Longitude: ${property.longitude}`}</p>
+        <p>{`Latitude: ${property.latitude}`}</p>
       </div>
       <div className="property-card-info">
         <p>{property.street}, {property.municipality}.</p>

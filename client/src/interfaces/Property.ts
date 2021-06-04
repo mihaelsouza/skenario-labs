@@ -12,6 +12,8 @@ export interface Property {
   municipality: string;
   country: string;
   description: string;
+  latitude: number;
+  longitude: number;
 };
 
 export const PropertyInitialState = [{
@@ -24,4 +26,6 @@ export const PropertyInitialState = [{
   municipality: '',
   country: '',
   description: '',
+  latitude: 0.0,
+  longitude: 0.0,
 }];
