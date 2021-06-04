@@ -23,6 +23,8 @@ create table properties(
   city varchar(50) not null,
   municipality varchar(50) not null,
   country varchar(50) not null,
+  longitude real not null,
+  latitude real not null,
   description varchar(1000) not null
 );
 alter table properties add constraint prop_users_fk

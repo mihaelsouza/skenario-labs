@@ -58,7 +58,9 @@ public class PropertyController {
           property.getCity(),
           property.getMunicipality(),
           property.getCountry(),
-          property.getDescription()
+          property.getDescription(),
+          property.getLongitude(),
+          property.getLatitude()
         ));
 
       return new ResponseEntity<>(_property, HttpStatus.CREATED);
@@ -85,6 +87,8 @@ public class PropertyController {
         _property.setMunicipality(property.getMunicipality());
         _property.setCountry(property.getCountry());
         _property.setDescription(property.getDescription());
+        _property.setLongitude(property.getLongitude());
+        _property.setLatitude(property.getLatitude());
 
         return new ResponseEntity<>(
           propertyRepository.save(_property),

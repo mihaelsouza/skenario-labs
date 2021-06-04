@@ -39,6 +39,12 @@ public class Property {
   @Column(name = "description")
   private String description;
 
+  @Column(name = "longitude")
+  private float longitude;
+
+  @Column(name = "latitude")
+  private float latitude;
+
   public Property() {}
 
   public Property(
@@ -49,7 +55,9 @@ public class Property {
     String city,
     String municipality,
     String country,
-    String description
+    String description,
+    float longitude,
+    float latitude
   ) {
     this.userId = userId;
     this.name = name;
@@ -59,6 +67,8 @@ public class Property {
     this.municipality = municipality;
     this.country = country;
     this.description = description;
+    this.longitude = longitude;
+    this.latitude = latitude;
   }
 
   public long getProperty_id() {
@@ -127,6 +137,22 @@ public class Property {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public float getLongitude() {
+    return longitude;
+  }
+
+  public void setLongitude(float longitude) {
+    this.longitude = longitude;
+  }
+
+  public float getLatitude() {
+    return latitude;
+  }
+
+  public void setLatitude(float latitude) {
+    this.latitude = latitude;
   }
 
 }
