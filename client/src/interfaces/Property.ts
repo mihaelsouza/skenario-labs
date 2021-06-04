@@ -9,3 +9,15 @@ export interface Property {
   country: string;
   description: string;
 };
+
+export const PropertyInitialState = {
+  property_id: 0,
+  userId: 0,
+  name: '',
+  street: '',
+  postalCode: '',
+  city: '',
+  municipality: '',
+  country: '',
+  description: '',
+};
