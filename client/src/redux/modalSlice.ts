@@ -1,8 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
 
-const initialState: { value: boolean } = {
+const initialState: { value: boolean, render: string } = {
   value: false,
+  render: 'user',
 };
 
 export const modalSlice = createSlice({
@@ -15,10 +16,13 @@ export const modalSlice = createSlice({
     closeModal: (state) => {
       return { ...state, value: false };
     },
+    switchRender: (state, action: PayloadAction<string>) => {
+      return { ...state, render: action.payload}
+    },
   },
 });
 
-export const { openModal, closeModal } = modalSlice.actions;
+export const { openModal, closeModal, switchRender } = modalSlice.actions;
 export const selectModal = (state: RootState): { value: boolean } =>
   state.modal;
 export default modalSlice.reducer;

@@ -1,16 +1,16 @@
 import './Modal.css';
-import React, { ReactNode } from 'react';
+import React from 'react';
 import ReactDom from 'react-dom';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { closeModal } from '../../redux/modalSlice';
 
-interface Props {
-  children?: ReactNode;
-}
+import UserLoginRegister from '../../components/UserLoginRegister/UserLoginRegister';
+import AddProperty from '../../components/AddProperty/AddProperty';
 
-const Modal: React.FC<Props> = ({ children }: Props) => {
+const Modal: React.FC = () => {
   const modalState = useAppSelector(state => state.modal.value);
+  const modalRender = useAppSelector(state => state.modal.render);
   const dispatch = useAppDispatch();
 
   const portalDiv = document.getElementById('portal');
@@ -27,7 +27,10 @@ const Modal: React.FC<Props> = ({ children }: Props) => {
         <button className="modal-close" onClick={handleClick}>
           X
         </button>
-        {children}
+        {modalRender === 'user'
+          ? <UserLoginRegister />
+          : <AddProperty />
+        }
       </div>
     </>,
     portalDiv
