@@ -2,9 +2,9 @@ import axios from 'axios';
 
 import { Property } from '../interfaces/Property';
 import { User } from "../interfaces/User";
+import { getEnrichedCoordindates } from './GeocodingAPIService';
 
-let serverAddress = 'http://localhost:8080';
-
+let serverAddress: string = 'http://localhost:8080';
 const { REACT_APP_SERVER_ADDRESS } = process.env;
 if (REACT_APP_SERVER_ADDRESS) serverAddress = REACT_APP_SERVER_ADDRESS;
 
@@ -56,6 +56,10 @@ async function getUserProperties(userId: number): Promise<Property[]> {
 
 async function addNewProperty(userId: number, property: Partial<Property>): Promise<Property> {
   try {
+    const coordinates = await getEnrichedCoordindates(property);
+    property.longitude = coordinates[0];
+    property.latitude = coordinates[1];
+
     const response = await axios.post(`${serverAddress}/properties/${userId}`, {userId, ...property});
     const newProperty: Property = response.data;
 
