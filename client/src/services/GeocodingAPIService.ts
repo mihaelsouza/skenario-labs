@@ -16,7 +16,6 @@ async function getEnrichedCoordindates(property: Partial<Property>): Promise<num
     const country = property.country?.replaceAll(' ', '%20');
 
     const searchUrl = `${baseUrl}${street}%20${city}%20${postalCode}%20${municipality}%20${country}${apiKey}`;
-    console.log(searchUrl)
     const response = await axios.get(searchUrl);
     const geoJSON = await response.data;
 
