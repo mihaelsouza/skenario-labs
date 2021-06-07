@@ -62,7 +62,7 @@ const PropertyView: React.FC<Props> = ({ actionMode }: Props) => {
     try {
       if (actionMode === 'addProperty' && Object.values(form).indexOf('') === -1) {
         const property = await addNewProperty(userId, form);
-        const newPropertiesArray = [...properties, property];
+        const newPropertiesArray = [property, ...properties];
 
         dispatch(storeProperties(newPropertiesArray));
       } else if (actionMode === 'updateProperty' && Object.values(form).indexOf('') === -1) {
