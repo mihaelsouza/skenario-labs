@@ -1,5 +1,5 @@
 # Property Viewer (Skenario Labs)
-Simple CRUD application that enables a registered user to perform all necessary operations to manage a properties portfolio.  
+Simple CRUD application that enables a registered user to manage a properties portfolio.  
 Properties are then displayed on a grid, allowing the user to either edit its fields or remove them entirely.  
 All added properties have enriched coordinates (latitude and longitude) obtained by geocoding the submitted addresses using the Geoapify API. This API is consumed client-side to reduce server load, and the API key is secured by specifying strict CORS policies. If higher security is desired, it would be advisable to switch over the calls to the Geoapify service to the server, however increasing server-side processing.
 
