@@ -1,5 +1,6 @@
 export interface Properties {
   value: Property[];
+  updateTarget: number;
 }
 
 export interface Property {

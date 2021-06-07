@@ -2,7 +2,7 @@ import './PropertyView.css';
 import React, { useState } from 'react';
 
 import { CountryDropdown } from 'react-country-region-selector';
-import { addNewProperty } from '../../services/ServerService';
+import { addNewProperty, updateProperty } from '../../services/ServerService';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { storeProperties } from '../../redux/propertySlice';
 import { closeModal } from '../../redux/modalSlice';
@@ -36,7 +36,25 @@ const PropertyView: React.FC<Props> = ({ actionMode }: Props) => {
   const dispatch = useAppDispatch();
   const userId = useAppSelector(state => state.users.userId);
   const properties = useAppSelector(state => state.properties.value);
-  const [form, setForm] = useState<Form>(formInitialState);
+  const propertyToUpdate = useAppSelector(state => state.properties.updateTarget);
+
+  let _formInitialState: Form;
+  let btnLabel: string = 'Add New';
+  if (actionMode === 'updateProperty') {
+    btnLabel = 'Update';
+
+    const _property = properties.filter((property) => property.property_id === propertyToUpdate)[0];
+    _formInitialState = {
+      name: _property.name,
+      street: _property.street,
+      postalCode: _property.postalCode,
+      city: _property.city,
+      municipality: _property.municipality,
+      country: _property.country,
+      description: _property.description,
+    };
+  } else _formInitialState = formInitialState;
+  const [form, setForm] = useState<Form>(_formInitialState);
 
   const handleSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
@@ -45,9 +63,19 @@ const PropertyView: React.FC<Props> = ({ actionMode }: Props) => {
       if (actionMode === 'addProperty' && Object.values(form).indexOf('') === -1) {
         const property = await addNewProperty(userId, form);
         const newPropertiesArray = [...properties, property];
+
         dispatch(storeProperties(newPropertiesArray));
-        dispatch(closeModal());
+      } else if (actionMode === 'updateProperty' && Object.values(form).indexOf('') === -1) {
+        const _property = await updateProperty(userId, propertyToUpdate, form);
+        const updatedPropertiesArray = properties.map((property) => {
+          if (property.property_id === propertyToUpdate) return _property;
+          else return property;
+        });
+
+        dispatch(storeProperties(updatedPropertiesArray));
       }
+
+      dispatch(closeModal());
     } catch (e) {
       alert('Could not add new property due to unexpected server error. Try again later!');
     }
@@ -144,12 +172,12 @@ const PropertyView: React.FC<Props> = ({ actionMode }: Props) => {
         <div className="add-property-form-btn">
           { actionMode === 'addProperty'
             ? (
-              <input type="reset" onClick={handleReset}></input>
+              <input type="reset" onClick={handleReset} />
             ) : (
               <></>
             )
           }
-          <input type="submit" onClick={handleSubmit}></input>
+          <input type="submit" onClick={handleSubmit} value={btnLabel} />
         </div>
       </form>
     </div>

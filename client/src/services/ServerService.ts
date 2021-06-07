@@ -69,6 +69,24 @@ async function addNewProperty(userId: number, property: Partial<Property>): Prom
   }
 }
 
+async function updateProperty(userId: number, propertyId: number, property: Partial<Property>): Promise<Property> {
+  try {
+    const coordinates = await getEnrichedCoordindates(property);
+    property.longitude = coordinates[0];
+    property.latitude = coordinates[1];
+
+    const response = await axios.put(
+      `${serverAddress}/properties/${userId}/${propertyId}`,
+      {userId, ...property}
+    );
+    const newProperty: Property = response.data;
+
+    return newProperty;
+  } catch (e) {
+    throw error(null);
+  }
+}
+
 async function deleteProperty(userId: number, propertyId: number): Promise<void> {
   try {
     await axios.delete(`${serverAddress}/properties/${userId}/${propertyId}`);
@@ -78,4 +96,4 @@ async function deleteProperty(userId: number, propertyId: number): Promise<void>
 }
 
 export { getUser, createUser };
-export { getUserProperties, deleteProperty, addNewProperty };
+export { getUserProperties, addNewProperty, updateProperty, deleteProperty };

@@ -2,6 +2,9 @@ import './PropertyCard.css';
 import React from 'react';
 
 import { Property } from '../../interfaces/Property';
+import { useAppDispatch } from '../../redux/hooks';
+import { openModal, switchRender } from '../../redux/modalSlice';
+import { changeUpdateTarget } from '../../redux/propertySlice';
 
 interface Props {
   key: React.Key;
@@ -10,7 +13,13 @@ interface Props {
 }
 
 const PropertyCard: React.FC<Props> = ({ property, handleRemove }: Props) => {
-  const handleEdit = () => {};
+  const dispatch = useAppDispatch();
+
+  const handleEdit = (): void => {
+    dispatch(changeUpdateTarget(property.property_id));
+    dispatch(switchRender('updateProperty'));
+    dispatch(openModal());
+  };
 
   return (
     <div className="property-card-container">

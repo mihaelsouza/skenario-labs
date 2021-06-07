@@ -15,11 +15,15 @@ async function getEnrichedCoordindates(property: Partial<Property>): Promise<num
     const municipality = property.municipality?.replaceAll(' ', '%20');
     const country = property.country?.replaceAll(' ', '%20');
 
-    const searchUrl = `${baseUrl}${street}${city}${postalCode}${municipality}${country}${apiKey}`;
+    const searchUrl = `${baseUrl}${street}%20${city}%20${postalCode}%20${municipality}%20${country}${apiKey}`;
+    console.log(searchUrl)
     const response = await axios.get(searchUrl);
-    const geoJSON = response.data;
+    const geoJSON = await response.data;
 
-    return geoJSON.features[0].geometry.coordinates;
+    if (geoJSON.features.length) {
+      console.log(geoJSON)
+      return geoJSON.features[0].geometry.coordinates;
+    } else return [NaN, NaN];
   } catch (e) {
     throw new Error(e.response.message)
   }
